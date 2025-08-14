@@ -462,9 +462,29 @@ Instruções:
 
     // Prepare monitor data for session storage
     const monitorTypes = [];
-    if (tool === "datadog") monitorTypes.push("APM", "Logs", "Infraestrutura");
-    if (tool === "dynatrace") monitorTypes.push("Performance", "Disponibilidade", "Erros");
-    if (tool === "zabbix") monitorTypes.push("Infraestrutura", "Rede", "Aplicação");
+    
+    // Generate monitor types based on the actual generated links
+    if (tool === "datadog") {
+      const linkCount = generatedLinks.length;
+      if (linkCount === 4) {
+        monitorTypes.push("APM", "Logs", "Infraestrutura", "Disponibilidade");
+      } else if (linkCount === 5) {
+        monitorTypes.push("APM", "Logs", "Infraestrutura", "Saturação", "Disponibilidade");
+      } else {
+        monitorTypes.push("APM", "Logs", "Infraestrutura");
+      }
+    }
+    if (tool === "dynatrace") {
+      const linkCount = generatedLinks.length;
+      if (linkCount === 3) {
+        monitorTypes.push("Performance", "Disponibilidade", "Erros");
+      } else {
+        monitorTypes.push("Performance", "Disponibilidade");
+      }
+    }
+    if (tool === "zabbix") {
+      monitorTypes.push("Infraestrutura", "Rede", "Aplicação");
+    }
 
     const monitorData = {
       user_email: 'usuário@sessão.com',
