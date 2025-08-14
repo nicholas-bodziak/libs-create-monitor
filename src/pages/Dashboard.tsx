@@ -234,13 +234,13 @@ const Dashboard: React.FC = () => {
               </p>
             </div>
             <div className="flex gap-2">
-              <Button onClick={() => navigate("/")} variant="outline">
-                <LinkIcon className="w-4 h-4 mr-2" />
-                Página Inicial
-              </Button>
               <Button onClick={() => navigate("/criar-monitor")}>
                 <Monitor className="w-4 h-4 mr-2" />
                 Criar Monitor
+              </Button>
+              <Button onClick={() => navigate("/")}>
+                <LinkIcon className="w-4 h-4 mr-2" />
+                Página Inicial
               </Button>
             </div>
           </div>
