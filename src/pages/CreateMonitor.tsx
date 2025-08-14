@@ -16,7 +16,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip
 import { Info as InfoIcon, Link as LinkIcon, RotateCcw, Loader2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import awsLogo from "@/assets/aws.svg";
-import { GEMINI_API_KEY, GEMINI_MODEL } from "@/config/ai";
+import { GEMINI_MODEL } from "@/config/ai";
 import { useMonitorStorage } from "@/hooks/useMonitorStorage";
 
 // Helper types
@@ -368,58 +368,7 @@ import { useMonitorStorage } from "@/hooks/useMonitorStorage";
     journeyVal: string,
     productVal: string
   ): Promise<string> => {
-    const key = GEMINI_API_KEY.trim();
-    if (!key) throw new Error("SEM_CHAVE");
-
-    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${encodeURIComponent(
-      key
-    )}`;
-
-    const prompt = `Gere uma mensagem curta, clara e objetiva que comunique a indisponibilidade ou instabilidade de um sistema, destacando o impacto direto ao negócio conforme a jornada do cliente e o produto afetado. A mensagem deve ser elaborada por um especialista e direcionada ao público de negócios e executivos de alto escalão, evidenciando de forma concisa os riscos operacionais, impacto à experiência do cliente e potenciais prejuízos estratégicos.
-
-Contexto:
-- Jornada: ${journeyVal}
-- Produto: ${productVal}
-
-Exemplo de caso: Cliente não consegue visualizar seu extrato bancário da conta corrente.
-
-Instruções:
-- Responda em PT-BR.
-- Traga uma única frase objetiva (máximo 2 linhas).
-- Foque nos impactos ao negócio e na experiência do cliente, evitando jargões técnicos.`;
-
-    const body = {
-      contents: [
-        {
-          role: "user",
-          parts: [{ text: prompt }],
-        },
-      ],
-      generationConfig: {
-        temperature: 0.7,
-        maxOutputTokens: 256,
-      },
-    } as const;
-
-    const res = await fetch(endpoint, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    });
-
-    if (!res.ok) {
-      const err = await res.text();
-      throw new Error(err || "Erro na chamada ao Gemini");
-    }
-
-    const data = await res.json();
-    const text =
-      data?.candidates?.[0]?.content?.parts
-        ?.map((p: any) => p?.text || "")
-        .join(" ")
-        .trim() || data?.candidates?.[0]?.content?.parts?.[0]?.text || "";
-
-    return (text || "").split(" ").slice(0, 80).join(" ");
+    throw new Error("API_KEY_REMOVIDA");
   };
 
   const handleGenerateImpact = async () => {
