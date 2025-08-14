@@ -531,47 +531,6 @@ const Dashboard: React.FC = () => {
             </CardContent>
           </Card>
 
-          {/* Contagem por Tipos de Monitores */}
-          {Object.keys(filteredStats.monitorTypeCounts).length > 0 && (
-            <Card className="mb-6">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Activity className="w-5 h-5" />
-                  Contagem por Tipos de Monitores
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
-                  {Object.entries(filteredStats.monitorTypeCounts)
-                    .sort(([,a], [,b]) => b - a)
-                    .map(([type, count]) => (
-                      <div 
-                        key={type} 
-                        className="bg-muted/30 p-4 rounded-lg text-center hover:bg-muted/50 transition-colors"
-                      >
-                        <div className="text-2xl font-bold text-primary mb-1">{count}</div>
-                        <div className="text-sm font-medium text-foreground">{type}</div>
-                      </div>
-                    ))
-                  }
-                </div>
-                <div className="mt-4 pt-4 border-t border-border/50">
-                  <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
-                    <span>Resumo:</span>
-                    {Object.entries(filteredStats.monitorTypeCounts)
-                      .sort(([,a], [,b]) => b - a)
-                      .map(([type, count]) => (
-                        <Badge key={type} variant="secondary" className="text-xs">
-                          {type} {count}
-                        </Badge>
-                      ))
-                    }
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          )}
-
           {/* Lista de Monitores */}
           {filteredMonitors.length === 0 ? (
             <Card>
